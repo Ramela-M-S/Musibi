@@ -39,6 +39,61 @@ Access-code gated campus onboarding preventing cross-tenant spoofing, alongside 
 
 ---
 
+## 🏛️ End-to-End System Architecture
+
+```mermaid
+flowchart TD
+    subgraph Client ["Client & Presentation Layer"]
+        A["Verified Student Client<br/>(Web / Mobile Browser)"]
+        B["Institutional Onboarding<br/>(Passcodes: PEC2026, NIT2026, IITM2026)"]
+    end
+
+    subgraph SecurityApp ["Security & Application Layer (Django 6.0)"]
+        C{"Multi-Tenant Boundary Guard<br/>(Tenant Key: campus_id)"}
+        D["Magic-Byte Stream Validator<br/>(Inspects %PDF, 0x89PNG | Blocks MZ .exe)"]
+        E["Feed Controller & Filter<br/>(Category Filtering: #Academics, #Events)"]
+        F["Atomic Upvote Controller<br/>(ACID Transaction & F Expressions)"]
+        G["Event-Driven Signal Dispatcher<br/>(Django post_save / post_delete)"]
+    end
+
+    subgraph CacheLayer ["In-Memory Caching Layer"]
+        H[("Redis / LocMem Cache<br/>Key: musubi:feed:campus_{id}:cat_{cat}<br/>TTL: 300s")]
+    end
+
+    subgraph Persistence ["Persistence & File Storage Layer"]
+        I[("Relational Database<br/>PostgreSQL / SQLite")]
+        J["Compound B-Tree Indexes<br/>Index(campus, category, -created_at)"]
+        K["Optimized Relational JOINs<br/>select_related(user, profile, campus)"]
+        L[("Asset & Document Storage<br/>Cloudinary CDN / FileSystem")]
+    end
+
+    %% Routing Flow
+    B -->|"1. Validate Passkey"| C
+    A -->|"2. Request Channel Feed"| C
+    A -->|"3. Upload Course Document"| D
+    A -->|"4. Toggle Upvote (AJAX)"| F
+
+    C -->|"Authorized Tenant"| E
+    C -.->|"Cross-Campus Access"| BLOCK["403 Forbidden"]
+
+    D -->|"Verified Non-Executable Payload"| L
+
+    E -->|"Step A: Read-Through Lookup"| H
+    H -->|"Cache Hit (0.01 ms)"| A
+    H -.->|"Cache Miss (Cold Start)"| I
+
+    I --- J
+    I -->|"Step B: Single SQL JOIN (1 Query)"| K
+    K -->|"Write to Cache (TTL 5m)"| H
+    K -->|"Return Sorted Feed"| A
+
+    F -->|"Atomic SQL Increment: F('upvotes') + 1"| I
+    F -->|"Trigger Eviction"| G
+    G -->|"Purge Stale Campus Feed Keys"| H
+```
+
+---
+
 ## 🚀 Measurable Engineering Evidence (Benchmarks)
 
 Every architectural optimization in Musibi is verified via an automated benchmark suite (`run_benchmarks.py`):
