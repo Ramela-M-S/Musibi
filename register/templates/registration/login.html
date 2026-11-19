@@ -1,67 +1,101 @@
 {% extends "feed/base.html" %}
 {% load crispy_forms_tags %}
 
+{% block title %}Log In | Musibi{% endblock %}
+
 {% block content %}
 <style>
-    body {
-        background-color: #f5f5f5;
-        min-height: 100vh;
-        font-family: 'Arial', sans-serif;
-    }
+.login-wrapper {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+}
 
-    .login-container {
-        max-width: 400px;
-        margin: 80px auto;
-        padding: 40px;
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        text-align: center;
-    }
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 36px 30px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
 
-    .login-container h2 {
-        margin-bottom: 25px;
-        color: #333;
-        font-weight: 600;
-    }
+.login-header {
+    text-align: center;
+    margin-bottom: 22px;
+}
 
-    button.btn-primary {
-        width: 100%;
-        border-radius: 12px;
-        padding: 12px;
-        font-size: 16px;
-        background: #333;
-        border: none;
-        color: #fff;
-        transition: background 0.3s ease;
-    }
+.login-header h2 {
+    font-weight: 800;
+    color: #0F172A;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+}
 
-    button.btn-primary:hover {
-        background: #555;
-    }
+.login-header p {
+    color: #64748B;
+    font-size: 0.9rem;
+    margin: 0;
+}
 
-    .register-link {
-        margin-top: 15px;
-        display: block;
-        color: #333;
-        text-decoration: none;
-        font-size: 14px;
-    }
+.btn-login {
+    width: 100%;
+    padding: 11px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: #D92338 !important;
+    border: none !important;
+    color: #ffffff !important;
+    transition: background 0.15s ease;
+    margin-top: 10px;
+}
 
-    .register-link:hover {
-        text-decoration: underline;
-    }
+.btn-login:hover {
+    background: #B3172A !important;
+}
+
+.login-footer-links {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #F1F5F9;
+    font-size: 0.88rem;
+    color: #64748B;
+}
+
+.login-footer-links a {
+    color: #D92338;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-footer-links a:hover {
+    text-decoration: underline;
+}
 </style>
 
-<div class="login-container">
-    <h2>Login</h2>
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-header">
+            <h2>Welcome back</h2>
+            <p>Log in to catch up on your college feed</p>
+        </div>
 
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-primary mt-2">Login</button>
-    </form>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-login">
+                Log In
+            </button>
+        </form>
 
-    <a href="{% url 'register' %}" class="register-link">Don't have an account? Register</a>
+        <div class="login-footer-links">
+            New here? <a href="{% url 'register' %}">Join with college access code</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

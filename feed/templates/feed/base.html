@@ -3,132 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Social Feed{% endblock %}</title>
+    <title>{% block title %}Musibi | Campus Network{% endblock %}</title>
     
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 & Material Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <style>
 :root {
-    --pinterest-red: #E60023;
-    --dark-red: #B8001F;
-    --soft-gold: #F5D76E;
-    --gold-glow: rgba(245,215,110,0.7);
+    --musibi-red: #D92338;
+    --musibi-red-dark: #B3172A;
+    --musibi-red-soft: #FDE8EA;
+    --pinterest-red: #D92338;
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --border-light: #E2E8F0;
+    --bg-page: #F8FAFC;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-    background: linear-gradient(180deg, #fff5f7, #ffe6ea);
+    background: var(--bg-page);
     min-height: 100vh;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
 }
 
-/* ===== NAVBAR ===== */
-.navbar {
+/* NAVBAR */
+.navbar-musibi {
     background: #ffffff !important;
-    border-bottom: 3px solid var(--pinterest-red);
-    box-shadow: 0 6px 16px rgba(230,0,35,0.25);
-    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--border-light);
+    padding: 0.75rem 1.25rem;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: 900;
-    color: var(--pinterest-red) !important;
-    letter-spacing: 1px;
+.logo-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--musibi-red) !important;
     text-decoration: none;
-    transition: all 0.3s ease;
+    letter-spacing: -0.3px;
 }
 
-.logo:hover {
-    text-shadow: 0 0 6px var(--soft-gold), 0 0 14px var(--gold-glow);
+.logo-badge {
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--musibi-red-soft);
+    color: var(--musibi-red);
+    padding: 2px 7px;
+    border-radius: 6px;
 }
 
-/* ===== BUTTONS & NAV LINKS ===== */
-.nav-link-custom {
+.nav-link-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.nav-link-item:hover {
+    color: var(--musibi-red);
+    background: var(--musibi-red-soft);
+}
+
+.btn-post-cta {
+    background: var(--musibi-red) !important;
+    color: #fff !important;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    border: none;
+    transition: background 0.15s ease;
+}
+
+.btn-post-cta:hover {
+    background: var(--musibi-red-dark) !important;
+}
+
+.user-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1px solid var(--border-light);
+    padding: 4px 12px 4px 6px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.user-avatar-mini {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--musibi-red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.78rem;
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin: 5px;
-    background: transparent !important;
-    border: 2px solid var(--pinterest-red) !important;
-    color: var(--pinterest-red) !important;
-    border-radius: 24px;
-    padding: 8px 20px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    justify-content: center;
 }
 
-.nav-link-custom:hover {
-    background: var(--pinterest-red) !important;
-    color: #fff !important;
-    box-shadow: 0 0 10px var(--soft-gold), 0 0 24px var(--gold-glow);
+.campus-tag-mini {
+    background: var(--musibi-red-soft);
+    color: var(--musibi-red);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 6px;
 }
 
-.nav-icon {
-    font-size: 20px;
+.btn-logout-mini {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 2px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-/* Responsive adjustments for mobile menu */
-@media (max-width: 991px) {
-    .navbar-collapse {
-        margin-top: 15px;
-        border-top: 1px solid #eee;
-        padding-top: 15px;
-    }
-    .nav-link-custom {
-        justify-content: center;
-        width: 100%;
-    }
+.btn-logout-mini:hover {
+    color: var(--musibi-red);
+}
+
+main.main-content {
+    flex: 1 0 auto;
+    padding-bottom: 50px;
+}
+
+footer.musubi-footer {
+    background: #ffffff;
+    border-top: 1px solid var(--border-light);
+    padding: 22px 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
-    <div class="container-fluid">
-        <a class="logo" href="#">SocialFeed</a>
+<nav class="navbar navbar-expand-lg navbar-musibi sticky-top">
+    <div class="container-fluid px-lg-4">
+        <a class="logo-brand" href="{% if user.is_authenticated %}{% url 'menu' %}{% else %}{% url 'home' %}{% endif %}">
+            <span>Musibi</span>
+            <span class="logo-badge">Campus</span>
+        </a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="material-icons" style="color: var(--pinterest-red);">menu</span>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#musibiNav">
+            <span class="material-icons" style="color: var(--musibi-red);">menu</span>
         </button>
 
-        <div class="collapse navbar-collapse" id="mainNav">
-            <div class="navbar-nav mx-auto">
-                <a href="{% url 'home' %}" class="nav-link-custom">
-                    <span class="material-icons nav-icon">home</span> Home
-                </a>
-                <a href="{% url 'login' %}" class="nav-link-custom">
-                    <span class="material-icons nav-icon">login</span> Login
-                </a>
-                <a href="{% url 'register' %}" class="nav-link-custom">
-                    <span class="material-icons nav-icon">person_add</span> Register
-                </a>
+        <div class="collapse navbar-collapse" id="musibiNav">
+            <div class="navbar-nav mx-auto align-items-center gap-1">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'all_posts' %}" class="nav-link-item">
+                        <span class="material-icons" style="font-size: 18px;">dynamic_feed</span> Campus Feed
+                    </a>
+                    <a href="{% url 'my_posts' %}" class="nav-link-item">
+                        <span class="material-icons" style="font-size: 18px;">person</span> My Posts
+                    </a>
+                    <a href="{% url 'menu' %}" class="nav-link-item">
+                        <span class="material-icons" style="font-size: 18px;">grid_view</span> Menu
+                    </a>
+                {% else %}
+                    <a href="{% url 'home' %}" class="nav-link-item">
+                        <span class="material-icons" style="font-size: 18px;">home</span> Home
+                    </a>
+                    <a href="{% url 'login' %}" class="nav-link-item">
+                        <span class="material-icons" style="font-size: 18px;">login</span> Log In
+                    </a>
+                    <a href="{% url 'register' %}" class="nav-link-item">
+                        <span class="material-icons" style="font-size: 18px;">person_add</span> Register with College Code
+                    </a>
+                {% endif %}
             </div>
 
-            <div class="navbar-nav ms-auto">
+            <div class="navbar-nav ms-auto align-items-center gap-2">
                 {% if user.is_authenticated %}
-                <form method="POST" action="{% url 'logout' %}" class="d-inline">
-                    {% csrf_token %}
-                    <button type="submit" class="nav-link-custom w-100">
-                        <span class="material-icons nav-icon">logout</span> Log Out
-                    </button>
-                </form>
+                    <a href="{% url 'create' %}" class="btn-post-cta">
+                        <span class="material-icons" style="font-size: 18px;">add</span> Share Post
+                    </a>
+                    
+                    <div class="user-badge-pill ms-lg-2">
+                        <div class="user-avatar-mini">
+                            {{ user.username|make_list|first|upper }}
+                        </div>
+                        <span>@{{ user.username }}</span>
+                        {% if user.profile %}
+                            <span class="campus-tag-mini">{{ user.profile.campus.code }}</span>
+                        {% endif %}
+                        <form method="POST" action="{% url 'logout' %}" class="d-inline m-0 p-0">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-logout-mini" title="Sign Out">
+                                <span class="material-icons" style="font-size: 17px;">logout</span>
+                            </button>
+                        </form>
+                    </div>
                 {% endif %}
             </div>
         </div>
     </div>
 </nav>
 
-<main class="container mt-4">
+<main class="main-content">
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% block content %}{% endblock %}
 </main>
+
+<footer class="musubi-footer">
+    <div class="container">
+        <strong>Musibi</strong> — Built for college students to share notes, catch events, and stay in touch.
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,207 +1,77 @@
 {% extends "feed/base.html" %}
-{% block title %}Create Post{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block title %}Share a Post | Musibi{% endblock %}
+
 {% block content %}
-
 <style>
-:root {
-    --pinterest-red: #E60023;
-    --dark-red: #B8001F;
-    --soft-gold: #F5D76E;
-    --gold-glow: rgba(245,215,110,0.75);
-}
-
-/* ===== CONTAINER ===== */
-.create-container {
-    min-height: calc(100vh - 60px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* ===== CARD ===== */
-.create-card {
-    width: 100%;
-    max-width: 600px;
-    background: #ffffff;
-    border-radius: 22px;
-    overflow: hidden;
-
-    border: 2px solid var(--pinterest-red);
-    box-shadow:
-        0 0 22px rgba(230,0,35,0.35),
-        0 0 36px rgba(245,215,110,0.4);
-}
-
-/* ===== HEADER ===== */
-.create-header {
-    padding: 18px 22px;
-    font-weight: 900;
-    font-size: 1.3rem;
-    color: var(--pinterest-red);
-
-    /* ALWAYS GLITTER */
-    text-shadow:
-        0 0 6px var(--soft-gold),
-        0 0 14px var(--gold-glow),
-        0 0 22px rgba(245,215,110,0.6);
-
-    border-bottom: 2px solid var(--pinterest-red);
-    animation: headerGlow 3s infinite alternate;
-}
-
-/* ===== IMAGE DROP ===== */
-.image-drop {
-    height: 280px;
-    border-bottom: 2px dashed var(--pinterest-red);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    background: rgba(230,0,35,0.03);
-    transition: all 0.35s ease;
-}
-
-.image-drop:hover {
-    background: rgba(230,0,35,0.06);
-    box-shadow: inset 0 0 25px rgba(245,215,110,0.35);
-}
-
-.image-drop span {
-    color: var(--pinterest-red);
-    font-weight: 600;
-
-    /* GOLD SHIMMER */
-    text-shadow:
-        0 0 6px var(--soft-gold),
-        0 0 12px var(--gold-glow);
-}
-
-.image-drop img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
-}
-
-/* ===== BODY ===== */
-.create-body {
-    padding: 22px;
-}
-
-.create-body label {
-    font-weight: 600;
-    color: var(--pinterest-red);
-}
-
-/* INPUTS */
-.create-body input,
-.create-body textarea {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1.6px solid var(--pinterest-red);
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.create-body input:focus,
-.create-body textarea:focus {
-    box-shadow:
-        0 0 10px var(--soft-gold),
-        0 0 22px var(--gold-glow);
-}
-
-/* ===== POST BUTTON ===== */
-.post-btn {
-    width: 100%;
-    padding: 14px;
-    font-weight: 700;
-    border-radius: 30px;
-
-    background: var(--pinterest-red) !important;
-    color: #fff !important;
-    border: none !important;
-
-    box-shadow:
-        0 0 14px var(--soft-gold),
-        0 0 30px rgba(230,0,35,0.7);
-
-    transition: all 0.3s ease;
-}
-
-/* BUTTON HOVER */
-.post-btn:hover {
-    transform: scale(1.04);
-    box-shadow:
-        0 0 20px var(--soft-gold),
-        0 0 45px rgba(230,0,35,0.9);
-}
-
-/* ===== ANIMATION ===== */
-@keyframes headerGlow {
-    from {
-        text-shadow:
-            0 0 6px rgba(245,215,110,0.6),
-            0 0 14px rgba(245,215,110,0.5);
+    .create-wrapper {
+        min-height: calc(100vh - 120px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 25px 15px;
     }
-    to {
-        text-shadow:
-            0 0 14px rgba(245,215,110,0.9),
-            0 0 30px rgba(245,215,110,0.8);
+
+    .create-card {
+        width: 100%;
+        max-width: 600px;
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 32px 28px;
+        border: 1px solid #E2E8F0;
+        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
     }
-}
+
+    .create-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .create-header h2 {
+        font-weight: 800;
+        color: #0F172A;
+        font-size: 1.55rem;
+        margin-bottom: 4px;
+    }
+
+    .create-header p {
+        color: #64748B;
+        font-size: 0.9rem;
+    }
+
+    .post-btn {
+        width: 100%;
+        padding: 11px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        background: #D92338 !important;
+        color: #ffffff !important;
+        border: none !important;
+        transition: background 0.15s ease;
+        margin-top: 12px;
+    }
+
+    .post-btn:hover {
+        background: #B3172A !important;
+    }
 </style>
 
-
-<div class="create-container">
+<div class="create-wrapper">
     <div class="create-card">
-
-        <div class="create-header">Create New Post</div>
+        <div class="create-header">
+            <h2>Share with your campus</h2>
+            <p>Upload lecture notes, post a hackathon update, or ask a question</p>
+        </div>
 
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-
-            <!-- IMAGE UPLOAD -->
-            <label class="image-drop" for="create-input">
-                <span id="dropText">Drag & drop image or click to upload</span>
-                <img id="preview">
-            </label>
-
-            <!-- HIDDEN FILE INPUT -->
-            <input type="file" id="create-input" name="post_image" accept="image/*">
-
-            <!-- BODY -->
-            <div class="create-body">
-                {{ form.title.label_tag }}
-                {{ form.title }}
-
-                {{ form.desc.label_tag }}
-                {{ form.desc }}
-
-                <button type="submit" class="btn btn-primary post-btn">
-                    Post
-                </button>
-            </div>
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary post-btn">
+                Post to Feed
+            </button>
         </form>
-
     </div>
 </div>
-
-<script>
-const input = document.getElementById("create-input");
-const preview = document.getElementById("preview");
-const text = document.getElementById("dropText");
-
-input.addEventListener("change", () => {
-    const file = input.files[0];
-    if (file) {
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = "block";
-        text.style.display = "none";
-    }
-});
-</script>
-
 {% endblock %}

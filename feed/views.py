@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
-# Create your views here.
 
 def home_view(request):
-    return render(request,"feed/home.html")
+    """
+    Renders the platform public landing page.
+    """
+    return render(request, "feed/home.html")
+

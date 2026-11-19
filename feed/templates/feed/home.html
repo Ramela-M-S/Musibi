@@ -1,121 +1,287 @@
 {% extends "feed/base.html" %}
 
-{% block title %}Home | Social Feed{% endblock %}
+{% block title %}Musibi — Your College Campus Network{% endblock %}
 
 {% block content %}
 <style>
-/* Center the card container */
-.home-container {
+/* ===== HERO SECTION ===== */
+.hero-wrapper {
+    padding: 60px 20px 40px;
+    text-align: center;
+}
+
+.hero-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    color: var(--musibi-red);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+    max-width: 760px;
+    margin: 0 auto 16px;
+}
+
+.hero-desc {
+    font-size: 1.1rem;
+    color: #64748B;
+    max-width: 620px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.hero-actions {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    min-height: calc(100vh - 80px); /* Adjust based on navbar height */
-    padding: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 
-.home-card {
-    background: #ffffff;
-    padding: 60px 40px;
-    border-radius: 28px;
-    box-shadow: 0 20px 50px rgba(230,0,35,0.35);
+.btn-hero-primary {
+    background: var(--musibi-red) !important;
+    color: #ffffff !important;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s ease;
+}
+
+.btn-hero-primary:hover {
+    background: var(--musibi-red-dark) !important;
+}
+
+.btn-hero-secondary {
+    background: #ffffff !important;
+    color: #1E293B !important;
+    border: 1px solid #CBD5E1 !important;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+}
+
+.btn-hero-secondary:hover {
+    border-color: #94A3B8 !important;
+    background: #F8FAFC !important;
+}
+
+/* ===== FEATURE GRID ===== */
+.features-section {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 10px 15px 40px;
+}
+
+.section-label {
     text-align: center;
-    width: 100%; /* Default to full width for small screens */
-    max-width: 640px;
-    margin-top: 50px; /* Reduced from 90px for better mobile view */
-    transition: all 0.35s ease;
-}
-
-.home-card:hover {
-    transform: translateY(-10px);
-    box-shadow:
-        0 0 30px rgba(230,0,35,0.6),
-        0 0 60px rgba(245,215,110,0.6);
-}
-
-/* ===== TITLE ===== */
-.home-card h1 {
-    font-size: 2.5rem; /* Slightly smaller for mobile by default */
-    font-weight: 900;
-    color: #E60023;
-    text-shadow:
-        0 0 8px rgba(245,215,110,0.7),
-        0 0 18px rgba(245,215,110,0.6);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
     letter-spacing: 1px;
-    animation: titleGlow 3s infinite alternate;
-    line-height: 1.2;
+    color: var(--musibi-red);
+    margin-bottom: 6px;
 }
 
-@keyframes titleGlow {
-    from { text-shadow: 0 0 8px rgba(245,215,110,0.6), 0 0 18px rgba(245,215,110,0.5); }
-    to { text-shadow: 0 0 14px rgba(245,215,110,0.8), 0 0 30px rgba(245,215,110,0.7); }
+.section-heading {
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #0F172A;
+    margin-bottom: 30px;
+    letter-spacing: -0.3px;
 }
 
-/* ===== TEXT ===== */
-.home-card p {
-    color: #4A4A4A;
-    font-size: 1.1rem;
-    margin-bottom: 22px;
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
 }
 
-/* ===== BUTTON ===== */
-.home-card .btn-primary {
-    background: var(--pinterest-red) !important;
-    border: none !important;
-    padding: 12px 36px;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    color: #fff !important;
-    display: inline-block;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 18px var(--soft-gold), 0 0 30px rgba(230,0,35,0.6);
+.feature-box {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 24px 20px;
+    text-align: left;
+    transition: border-color 0.15s ease;
 }
 
-.home-card .btn-primary:hover {
-    transform: scale(1.05);
+.feature-box:hover {
+    border-color: #CBD5E1;
 }
 
-/* =========================================
-   MEDIA QUERIES (Responsiveness)
-   ========================================= */
+.feature-icon-bubble {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
 
-/* Tablets and small desktops */
+.icon-blue { background: #EFF6FF; color: #1D4ED8; }
+.icon-purple { background: #F5F3FF; color: #6D28D9; }
+.icon-amber { background: #FFFBEB; color: #B45309; }
+.icon-green { background: #ECFDF5; color: #047857; }
+
+.feature-box h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 8px;
+}
+
+.feature-box p {
+    font-size: 0.88rem;
+    color: #64748B;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Minimalist Student Notice */
+.campus-callout {
+    max-width: 980px;
+    margin: 30px auto 10px;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 22px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.campus-callout-text h5 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 4px;
+}
+
+.campus-callout-text p {
+    font-size: 0.88rem;
+    color: #64748B;
+    margin: 0;
+}
+
 @media (max-width: 768px) {
-    .home-card {
-        padding: 40px 25px;
-        margin-top: 30px;
+    .hero-title {
+        font-size: 2.1rem;
     }
-    .home-card h1 {
-        font-size: 2rem;
-    }
-}
-
-/* Mobile phones */
-@media (max-width: 480px) {
-    .home-card {
-        padding: 30px 15px;
-        border-radius: 20px;
-        margin-top: 20px;
-    }
-    .home-card h1 {
-        font-size: 1.7rem;
-    }
-    .home-card p {
+    .hero-desc {
         font-size: 1rem;
-    }
-    .home-card .btn-primary {
-        padding: 10px 28px;
-        width: 100%; /* Button goes full width on very small phones */
     }
 }
 </style>
 
-<div class="home-container">
-    <div class="home-card">
-        <h1>SOCIAL FEED WEBSITE</h1>
-        <p>Welcome! Explore posts, create your own posts, and share your updates.</p>
-        <p class="tech-used"><strong>Built with Django</strong></p>
-        <a href="{% url 'menu' %}" class="btn btn-primary">Show Posts</a>
+<div class="hero-wrapper">
+    <div class="hero-pill-badge">
+        <span class="material-icons" style="font-size: 16px;">school</span>
+        <span>For students, by students</span>
+    </div>
+
+    <h1 class="hero-title">
+        Everything happening on campus, in one feed.
+    </h1>
+
+    <p class="hero-desc">
+        Lecture notes from yesterday, hackathon teammate alerts, club workshop updates, or lost items — Musibi is the private campus board for our college.
+    </p>
+
+    <div class="hero-actions">
+        {% if user.is_authenticated %}
+            <a href="{% url 'all_posts' %}" class="btn-hero-primary">
+                <span class="material-icons" style="font-size: 18px;">dynamic_feed</span> Open Campus Feed
+            </a>
+            <a href="{% url 'menu' %}" class="btn-hero-secondary">
+                <span class="material-icons" style="font-size: 18px;">grid_view</span> Go to Menu
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn-hero-primary">
+                <span class="material-icons" style="font-size: 18px;">login</span> Student Log In
+            </a>
+            <a href="{% url 'register' %}" class="btn-hero-secondary">
+                <span class="material-icons" style="font-size: 18px;">person_add</span> Register with College Code
+            </a>
+        {% endif %}
     </div>
 </div>
 
+<!-- CHANNELS OVERVIEW -->
+<div class="features-section">
+    <div class="section-label">What's Inside</div>
+    <h3 class="section-heading">Organized into simple channels</h3>
+
+    <div class="features-grid">
+        <div class="feature-box">
+            <div class="feature-icon-bubble icon-blue">
+                <span class="material-icons">menu_book</span>
+            </div>
+            <h4>Notes & Study Prep</h4>
+            <p>Past question papers, lab records, and lecture summaries shared by classmates before midterms and finals.</p>
+        </div>
+
+        <div class="feature-box">
+            <div class="feature-icon-bubble icon-purple">
+                <span class="material-icons">event</span>
+            </div>
+            <h4>Hackathons & Fests</h4>
+            <p>Find teammates for 24-hr coding sprints, college symposiums, and see what workshops clubs are hosting.</p>
+        </div>
+
+        <div class="feature-box">
+            <div class="feature-icon-bubble icon-amber">
+                <span class="material-icons">search</span>
+            </div>
+            <h4>Lost & Found</h4>
+            <p>Lost your student ID, calculator, or water bottle near the library? Post here before it ends up in the lost-property room.</p>
+        </div>
+
+        <div class="feature-box">
+            <div class="feature-icon-bubble icon-green">
+                <span class="material-icons">forum</span>
+            </div>
+            <h4>Campus Chatter</h4>
+            <p>Ask seniors for elective advice, hostel tips, lab recommendations, or just talk about campus life.</p>
+        </div>
+    </div>
+
+    <div class="campus-callout">
+        <div class="campus-callout-text">
+            <h5>Only students with your college code can join</h5>
+            <p>Every post and student is locked to their campus. Outsiders cannot see your college notes.</p>
+        </div>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'register' %}" class="btn-hero-secondary" style="padding: 8px 16px; font-size: 0.88rem;">
+                Join Your Campus
+            </a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
