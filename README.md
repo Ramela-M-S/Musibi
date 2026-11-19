@@ -150,8 +150,8 @@ Every architectural optimization in Musibi is verified via an automated benchmar
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/Social-Feed.git
-cd Social-Feed
+git clone https://github.com/Ramela-M-S/Musibi.git
+cd Musibi
 
 # 2. Install dependencies
 pip install -r requirements.txt
