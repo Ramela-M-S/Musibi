@@ -1,4 +1,4 @@
-# Musibi 結び — Intra-Campus Academic & Collaboration Platform
+# Musubi 結び — Intra-Campus Academic & Collaboration Platform
 
 [![Python](https://img.shields.io/badge/Python-3.14-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/Django-6.0-092E20?style=flat&logo=django&logoColor=white)](https://www.djangoproject.com/)
